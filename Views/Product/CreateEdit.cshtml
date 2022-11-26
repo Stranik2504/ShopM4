@@ -1,0 +1,83 @@
+﻿@model AdventureLabNew.Models.ViewModels.ProductViewModel
+
+@{
+    var title = "Create";
+
+    if (Model.Product.Id != default)
+        title = "Edit";
+
+    var btn = Model.Product.Id == default ? "Create" : "Edit";
+}
+
+<h1>@title Product</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <!-- Передача скрытых данных -->
+    <input asp-for="Product.Id" hidden />
+
+    <p>
+        <label asp-for="Product.Name"></label>
+        <input asp-for="Product.Name" class="form-control" />
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+    </p>
+    <p>
+        <label asp-for="Product.Description"></label>
+        <input asp-for="Product.Description" class="form-control" />
+    </p>
+    <p>
+        <label asp-for="Product.Image"></label>
+        <input type="file" id="input" name="files" class="form-control" multiple />
+    </p>
+    <p>
+        <label asp-for="Product.Price"></label>
+        <input asp-for="Product.Price" class="form-control" />
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
+    </p>
+    <p>
+        <label asp-for="Product.CategoryId"></label>
+        <!--<select asp-for="CategoryId" asp-items="@ViewBag.CategoriesList" class="form-control">-->
+        <select asp-for="Product.CategoryId" asp-items="@Model.CategoriesList" class="form-control">
+            <option disabled selected>Выберете катерогию...</option>
+        </select>
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+    </p>
+    <p>
+        <button type="submit" class="btn btn-success">
+            @if (Model.Product.Id == default)
+            {
+                <i class="fa-solid fa-circle-plus"></i>
+            }
+            else
+            {
+                <i class="fa-solid fa-pen"></i>
+            }
+            @btn
+        </button>
+        <a class="btn btn-dark" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    </p>
+
+    <p>
+        <div asp-validation-summary="All"></div>
+    </p>
+</form>
+
+@section Scripts {
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script>
+        function input(){
+            if (document.getElementById("input").value == "")
+            {
+                Swal.fire(
+                    'Good job!',
+                    'You clicked the button!',
+                    'success'
+                )
+            }
+        }
+
+        onload = input;
+    </script>
+}
