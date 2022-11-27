@@ -22,11 +22,13 @@
     </p>
     <p>
         <label asp-for="Product.Description"></label>
-        <input asp-for="Product.Description" class="form-control" />
+        <!--<input asp-for="Product.Description" class="form-control" />-->
+        <textarea asp-for="Product.Description" class="form-control summernote"></textarea>
+        <span asp-validation-for="Product.Description" class="text-danger"></span>
     </p>
     <p>
         <label asp-for="Product.Image"></label>
-        <input type="file" id="input" name="files" class="form-control" multiple />
+        <input type="file" id="uploadedImage" name="file" class="form-control" multiple />
     </p>
     <p>
         <label asp-for="Product.Price"></label>
@@ -42,17 +44,21 @@
         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
     </p>
     <p>
-        <button type="submit" class="btn btn-success">
-            @if (Model.Product.Id == default)
-            {
-                <i class="fa-solid fa-circle-plus"></i>
-            }
-            else
-            {
-                <i class="fa-solid fa-pen"></i>
-            }
+        @if (Model.Product.Id == default)
+        {
+            <button type="submit" onclick="input()" class="btn btn-success">
+            <i class="fa-solid fa-circle-plus"></i>
             @btn
-        </button>
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-success">
+            <i class="fa-solid fa-pen"></i>
+            @btn
+            </button>
+        }
+            
         <a class="btn btn-dark" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Back</a>
     </p>
 
@@ -67,17 +73,21 @@
     }
 
     <script>
-        function input(){
-            if (document.getElementById("input").value == "")
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 200
+            });
+        });
+
+        function input() {
+            if (document.getElementById("uploadedImage").value == "")
             {
                 Swal.fire(
-                    'Good job!',
-                    'You clicked the button!',
-                    'success'
-                )
+                    'Error!',
+                    'Please uplode image!',
+                    'error'
+                );
             }
         }
-
-        onload = input;
     </script>
 }
