@@ -4,6 +4,7 @@ using AdventureLabNew.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdventureLabNew.Controllers
 {
@@ -49,6 +50,12 @@ namespace AdventureLabNew.Controllers
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
+                }),
+                MyModelsList = _db.MyModels.Select(x =>
+                new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
                 })
             };
 
@@ -70,11 +77,11 @@ namespace AdventureLabNew.Controllers
 
             if (productViewModel.Product.Id == default)
             {
-                var pathDir = Path.Combine(wwwRoot, PathManager.ImageProductPath);
+                var pathDir = wwwRoot + PathManager.ImageProductPath;
                 var imageName = Guid.NewGuid().ToString();
 
                 var extenction = Path.GetExtension(files[0].FileName);
-                var filename = Path.Combine(pathDir, imageName + extenction);
+                var filename = pathDir + imageName + extenction;
 
                 using var fileStream = new FileStream(filename, FileMode.Create);
                 files[0].CopyTo(fileStream);
@@ -82,7 +89,80 @@ namespace AdventureLabNew.Controllers
                 productViewModel.Product.Image = imageName + extenction;
                 _db.Products.Add(productViewModel.Product);
             }
+            else
+            {
+                var product = _db.Products.AsNoTracking().FirstOrDefault(x => x.Id == productViewModel.Product.Id);
 
+                if (files.Count > 0)
+                {
+                    var pathDir = wwwRoot + PathManager.ImageProductPath;
+                    var imageName = Guid.NewGuid().ToString();
+
+                    var extenction = Path.GetExtension(files[0].FileName);
+                    var filename = pathDir + imageName + extenction;
+
+                    var oldFile = pathDir + product?.Image;
+
+                    if (System.IO.File.Exists(oldFile))
+                        System.IO.File.Delete(oldFile);
+
+                    using var fileStream = new FileStream(filename, FileMode.Create);
+                    files[0].CopyTo(fileStream);
+
+                    productViewModel.Product.Image = imageName + extenction;
+                }
+                else
+                {
+                    productViewModel.Product.Image = product?.Image ?? "";
+                }
+
+                _db.Products.Update(productViewModel.Product);
+            }
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var product = _db.Products.Find(id);
+
+            if (product == default)
+                return NotFound();
+
+            product.Category = _db.Categories.Find(product.CategoryId);
+            product.MyModel = _db.MyModels.Find(product.MyModelId);
+
+            if (product.Category == default || product.MyModel == default)
+                return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var product = _db.Products.Find(id);
+
+            if (product == default)
+                return NotFound();
+
+            var wwwRoot = _environment.WebRootPath;
+            var pathDir = wwwRoot + PathManager.ImageProductPath;
+            var file = pathDir + product?.Image;
+
+            if (System.IO.File.Exists(file))
+                System.IO.File.Delete(file);
+
+            _db.Products.Remove(product);
             _db.SaveChanges();
 
             return RedirectToAction("Index");

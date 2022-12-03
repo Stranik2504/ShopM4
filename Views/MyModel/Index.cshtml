@@ -13,7 +13,6 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Number</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -22,8 +21,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td width="55%">@item.Name</td>
-                    <td width="35%">@item.Number</td>
+                    <td width="90%">@item.Name</td>
                     <td><a style="display: block; margin-left: auto; margin-right: auto;" class="btn btn-primary" asp-route-Id="@item.Id" asp-controller="MyModel" asp-action="Edit"><i class="fa-solid fa-pen"></i></a></td>
                     <td>
                         

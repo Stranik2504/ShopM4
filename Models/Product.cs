@@ -27,5 +27,11 @@ namespace AdventureLabNew.Models
         // Добавление внешнего ключа - связь с другой таблицей
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        [Display(Name = "MyModel Id")]
+        public int MyModelId { get; set; }
+
+        [ForeignKey("MyModelId")]
+        public virtual MyModel MyModel { get; set; }
     }
 }

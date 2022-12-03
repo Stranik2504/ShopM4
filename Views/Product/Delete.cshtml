@@ -1,0 +1,55 @@
+﻿@model AdventureLabNew.Models.Product
+
+<h1>Delete Product</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <!-- Передача скрытых данных -->
+    <input asp-for="Id" hidden />
+
+    <p>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" disabled />
+    </p>
+    <p>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control summernote" disabled></textarea>
+    </p>
+    <p>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" disabled />
+    </p>
+    <p>
+        <label asp-for="CategoryId"></label>
+        <input asp-for="Category.Name" class="form-control" disabled />
+    </p>
+
+    <p>
+        <label asp-for="MyModelId"></label>
+        <input asp-for="MyModel.Name" class="form-control" disabled />
+    </p>
+    <p>
+        <button type="submit" asp-action="DeletePost" class="btn btn-danger">
+                <i class="fa-solid fa-circle-plus"></i>
+                Delete
+        </button>
+
+        <a class="btn btn-dark" asp-controller="Product" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    </p>
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.Image))
+{
+    <p>
+        <img src="@PathManager.ImageProductPath@Model.Image" width="100" height="100" />
+    </p>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 200
+            });
+        });
+    </script>
+}

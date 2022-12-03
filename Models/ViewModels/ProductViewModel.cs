@@ -8,5 +8,7 @@ namespace AdventureLabNew.Models.ViewModels
         public Product Product { get; set; }
 
         public IEnumerable<SelectListItem> CategoriesList { get; set; }
+
+        public IEnumerable<SelectListItem> MyModelsList { get; set; }
     }
 }

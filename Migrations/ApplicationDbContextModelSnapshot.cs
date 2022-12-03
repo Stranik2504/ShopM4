@@ -53,9 +53,6 @@ namespace AdventureLabNew.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("MyModels");
@@ -80,6 +77,9 @@ namespace AdventureLabNew.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MyModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -90,6 +90,8 @@ namespace AdventureLabNew.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("MyModelId");
 
                     b.ToTable("Products");
                 });
@@ -102,7 +104,15 @@ namespace AdventureLabNew.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AdventureLabNew.Models.MyModel", "MyModel")
+                        .WithMany()
+                        .HasForeignKey("MyModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("MyModel");
                 });
 #pragma warning restore 612, 618
         }
