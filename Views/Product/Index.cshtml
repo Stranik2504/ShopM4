@@ -17,6 +17,7 @@
                 <th>Product Name</th>
                 <th>Price</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,11 +25,12 @@
             {
                 <tr>
                     <td width="55%">@item.Name</td>
-                    <td width="30%">@item.Price</td>
-
-                    <td width="15%">
-                        <a class="btn btn-primary" asp-route-Id="@item.Id" asp-controller="Product" asp-action="CreateEdit"><i class="fa-solid fa-pen"></i></a>
-                        <a class="btn btn-danger" asp-route-Id="@item.Id" asp-controller="Product" asp-action="Delete"><i class="fa-solid fa-trash"></i></a>
+                    <td width="35%">@item.Price</td>
+                    <td>
+                        <a style="display: block; margin-left: auto; margin-right: auto;" class="btn btn-primary" asp-route-Id="@item.Id" asp-controller="Product" asp-action="CreateEdit"><i class="fa-solid fa-pen"></i></a>
+                    </td>
+                    <td>
+                        <a style="display: block; margin-left: auto; margin-right: auto;" class="btn btn-danger" asp-route-Id="@item.Id" asp-controller="Product" asp-action="Delete"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             }

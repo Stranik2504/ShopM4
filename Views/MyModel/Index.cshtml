@@ -3,6 +3,10 @@
     ViewData["Title"] = "MyModels";
 }
 
+<p>
+    <a class="btn btn-dark" asp-controller="MyModel" asp-action="Create"><i class="fa-solid fa-plus"></i> Create Category</a>
+</p>
+
 @if (Model.Count() > 0)
 {
     <table class="table table-bordered" style="width:100%">
@@ -11,15 +15,22 @@
                 <th>Name</th>
                 <th>Number</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td width="50%">@item.Name</td>
-                    <td width="30%">@item.Number</td>
-                    <td width="20%"></td>
+                    <td width="55%">@item.Name</td>
+                    <td width="35%">@item.Number</td>
+                    <td><a style="display: block; margin-left: auto; margin-right: auto;" class="btn btn-primary" asp-route-Id="@item.Id" asp-controller="MyModel" asp-action="Edit"><i class="fa-solid fa-pen"></i></a></td>
+                    <td>
+                        
+                        <form asp-controller="MyModel" asp-action="Delete" asp-route-Id="@item.Id" method="post">
+                            <input style="display: block; margin-left: auto; margin-right: auto;" type="submit" class="btn-danger btn" value="╳" />
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>
