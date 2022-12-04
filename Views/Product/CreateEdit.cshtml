@@ -27,6 +27,11 @@
         <span asp-validation-for="Product.Description" class="text-danger"></span>
     </p>
     <p>
+        <label asp-for="Product.ShortDescription"></label>
+        <input asp-for="Product.ShortDescription" class="form-control" />
+        <span asp-validation-for="Product.ShortDescription" class="text-danger"></span>
+    </p>
+    <p>
         <label asp-for="Product.Image"></label>
         <input type="file" id="uploadedImage" name="file" class="form-control" multiple />
     </p>

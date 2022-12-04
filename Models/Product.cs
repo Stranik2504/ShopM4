@@ -14,6 +14,8 @@ namespace AdventureLabNew.Models
 
         public string Description { get; set; }
 
+        public string ShortDescription { get; set; }
+
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Значение должно быть больше 1")]
         public double Price { get; set; }

@@ -1,0 +1,10 @@
+﻿@model AdventureLabNew.Models.Product
+
+<div class="card" style="width: 18rem;">
+    <img class="rounded" style="margin: 5px" src="@PathManager.ImageProductPath@Model.Image">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.ShortDescription</p>
+        <a href="#" class="btn btn-primary">Details</a>
+    </div>
+</div>
