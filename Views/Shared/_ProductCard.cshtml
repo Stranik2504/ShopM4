@@ -1,10 +1,10 @@
 ﻿@model AdventureLabNew.Models.Product
 
-<div class="card center" style="display: inline-block; width: 18rem; margin-bottom: 5px; background: #1565C0; color: white">
+<div class="card center filter @Model.Category.Name.Replace(' ', '_')" style="float: left; width: 18rem; margin-right: 5px; margin-bottom: 5px; background: #1565C0; color: white">
     <img class="unselectable card-img-top" src="@PathManager.ImageProductPath@Model.Image">
     <div class="card-body">
         <h1 class="card-title" style="left: 5px; font-family: Arial">@Model.Name</h1>
         <p class="card-text" style="margin-top: 10px; font-family: Inter">@Model.ShortDescription</p>
-        <a href="#" class="btn btn-primary center">Details</a>
+        <a class="btn btn-primary center" asp-controller="Home" asp-action="Details" asp-route-Id="@Model.Id">Details</a>
     </div>
 </div>

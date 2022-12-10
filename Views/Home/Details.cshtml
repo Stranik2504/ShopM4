@@ -1,0 +1,27 @@
+﻿@model AdventureLabNew.Models.ViewModels.DetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<p>
+    <h2>@Model.Product.Name</h2>
+    <h2>@Model.Product.Price</h2>
+</p>
+
+<p>
+    <img src="@PathManager.ImageProductPath@Model.Product.Image" width="100" height="100" />
+</p>
+
+<p>
+    <h3>@Model.Product.Category.Name</h3>
+</p>
+
+<p>
+    @Html.Raw(Model.Product.Description)
+</p>
+
+<p>
+    <a class="btn btn-dark" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Back</a>
+
+    <a class="btn btn-primary" asp-action="Index"> Add to cart</a>
+</p>

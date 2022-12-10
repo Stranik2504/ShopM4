@@ -29,6 +29,17 @@ namespace AdventureLabNew.Controllers
             return View(homeViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            var detailsViewModel = new DetailsViewModel()
+            {
+                Product = _db.Products.Include(x => x.Category).Include(x => x.MyModel).FirstOrDefault(x => x.Id == id),
+                IsInCart = false
+            };
+
+            return View(detailsViewModel);
+        }
+
         public IActionResult Privacy()
         {
             return View();
