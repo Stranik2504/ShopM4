@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@using AdventureLabNew.Utility;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,6 +37,22 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="MyModel" asp-action="Index">My Models</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
                             </ul>
+                        </li>
+
+                        <li>
+                            @if (HttpContextAccessor.HttpContext?.Session.Get<List<Card>>(PathManager.SessionCart) != default)
+                            {
+                                var count = HttpContextAccessor.HttpContext?.Session.Get<List<Card>>(PathManager.SessionCart).Count() ?? 0;
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-cart-shopping"></i>&nbsp;(@count)
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link inactiveLink">
+                                    <i class="fa-solid fa-cart-shopping"></i>&nbsp;(0)
+                                </a>
+                            }
                         </li>
                     </ul>
                 </div>

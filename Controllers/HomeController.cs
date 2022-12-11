@@ -40,10 +40,15 @@ namespace AdventureLabNew.Controllers
             return View(detailsViewModel);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult AddCard(int? id)
         {
+            
+
             return View();
         }
+
+        public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

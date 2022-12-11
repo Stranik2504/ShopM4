@@ -28,3 +28,8 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
+
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+}
