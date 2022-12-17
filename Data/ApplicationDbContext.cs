@@ -1,9 +1,10 @@
 ﻿using AdventureLabNew.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdventureLabNew.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext   // изменили наследоавния
     {
         public DbSet<Category> Categories { get; set; }
 
