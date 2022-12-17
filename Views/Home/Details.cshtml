@@ -5,6 +5,9 @@
 
 <form method="post">
     <p>
+        <input asp-for="@Model.Product.Id" hidden />
+    </p>
+    <p>
         <h2>@Model.Product.Name</h2>
         <h2>@Model.Product.Price</h2>
     </p>
@@ -24,6 +27,15 @@
     <p>
         <a class="btn btn-dark" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Back</a>
 
-        <button type="submit" asp-action="AddCard" asp-route-Id="@Model.Product.Id" class="btn btn-primary">Add to cart</button>
+        @if (Model.IsInCart)
+        {
+            <button type="submit" asp-action="RemoveFromCart" asp-route-Id="@Model.Product.Id" class="btn btn-danger">Remove from cart</button>
+        }
+        else
+        {
+            <button type="submit" asp-action="AddCard" asp-route-Id="@Model.Product.Id" class="btn btn-primary">Add to cart</button>
+        }
+
+        
     </p>
 </form>
